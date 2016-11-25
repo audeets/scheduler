@@ -21,11 +21,11 @@ const EXCHANGE = 'crawl';
 // start the scheduler that will trigger the audits according to the pattern
 // define in the config file
 mongoose.Promise = bluebird;
-  cron.schedule(crawlerConfig.schedule, () => {
-    console.log('starting audits...');
-    audit();
-  });
-  console.log('scheduler started');
+cron.schedule(crawlerConfig.schedule, () => {
+  console.log('starting audits...');
+  audit();
+});
+console.log('scheduler started');
 
 /**
  * Loads all the projects from the db and run the audit of each of them by

@@ -9,3 +9,4 @@ public/javascripts/app.bundle.css.map
 public/stylesheets/style.bundle.css
 public/stylesheets/style.bundle.css.map
 typings/
+.DS_Store

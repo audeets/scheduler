@@ -3,4 +3,5 @@ const mongoConfig = config.get('mongo');
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 mongoose.connect(mongoConfig.connect);
+require('./../models/Projects');
 module.exports = mongoose;

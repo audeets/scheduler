@@ -4,15 +4,13 @@
  * Module dependencies.
  */
 
-const mongoose = require('mongoose');
+const mongoose = require('../models/init');
 const config = require('config');
 const amqpConfig = config.get('amqp');
 const crawlerConfig = config.get('crawler');
-const bluebird = require('bluebird');
 const _ = require('lodash');
 const cron = require('node-cron');
 const amqp = require('amqplib/callback_api');
-require('./../models/Projects');
 
 // End of dependencies.
 
@@ -20,7 +18,6 @@ const EXCHANGE = 'crawl';
 
 // start the scheduler that will trigger the audits according to the pattern
 // define in the config file
-mongoose.Promise = bluebird;
 cron.schedule(crawlerConfig.schedule, () => {
   console.log('starting audits...');
   audit();

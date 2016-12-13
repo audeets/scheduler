@@ -23,4 +23,4 @@ RUN chmod -R +w ${appDir}/log
 
 VOLUME ${appDir}/config ${appDir}/log
 
-CMD ["yarn", "run", "start"]
+CMD ["npm", "run", "start"]

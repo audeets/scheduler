@@ -34,12 +34,16 @@ function audit(done) {
   const nodeUrl = amqpConfig.connect;
   amqp.connect(nodeUrl, (err, conn) => {
     if (err) return console.log(err);
+    console.log('connected to node');
     conn.createChannel((err, ch) => {
       if (err) console.log(err);
+      console.log('connected to channel');
       ch.assertExchange(EXCHANGE, 'fanout', {durable: true});
+      console.log('exchange is ok. now getting projects');
       // loop through the projects and send a crawl task
       Project.find((err, projects) => {
         if (err) console.log(err);
+        console.log(`found ${projects.length} projects`)
         return _.each(projects, project => {
           const message = JSON.stringify({
             url: project.url,
@@ -52,7 +56,7 @@ function audit(done) {
       setTimeout(() => { // close the rabbitmq connection
         conn.close();
         if (done) done();
-      }, 500);
+      }, 5000);
     });
   });
 }

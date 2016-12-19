@@ -43,7 +43,7 @@ function audit(done) {
       // loop through the projects and send a crawl task
       Project.find((err, projects) => {
         if (err) console.log(err);
-        console.log(`found ${projects.length} projects`)
+        console.log(`found ${projects.length} projects`);
         return _.each(projects, project => {
           const message = JSON.stringify({
             url: project.url,

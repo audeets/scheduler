@@ -51,6 +51,7 @@ function audit(done) {
             nodeUrl
           });
           ch.publish(EXCHANGE, '', new Buffer(message));
+          console.log(`message published: ${message}`);
         });
       });
       setTimeout(() => { // close the rabbitmq connection

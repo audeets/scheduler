@@ -61,3 +61,7 @@ function audit(done) {
     });
   });
 }
+
+module.exports = {
+  audit
+};

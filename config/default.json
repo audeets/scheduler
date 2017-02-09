@@ -1,9 +1,9 @@
 {
   "amqp": {
-    "connect": "amqp://192.168.1.26"
+    "connect": "amqp://localhost"
   },
   "mongo": {
-    "connect": "mongodb://192.168.1.26/web-audits"
+    "connect": "mongodb://localhost/web-audits"
   },
   "crawler": {
     "schedule": "0 2 * * *"

@@ -3,7 +3,7 @@
     "connect": "amqp://localhost"
   },
   "hosts": {
-    "apiProjects": "http://localhost:5001/"
+    "apiProjects": "http://kong:8000/"
   },
   "crawler": {
     "schedule": "0 2 * * *"

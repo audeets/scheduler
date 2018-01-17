@@ -83,7 +83,6 @@ function audit() {
       });
       setTimeout(() => { // close the rabbitmq connection
         conn.close();
-        if (done) done();
       }, 5000);
     });
   });

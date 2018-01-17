@@ -56,9 +56,8 @@ function getProjects(callback) {
 /**
  * Loads all the projects from the db and run the audit of each of them by
  * creating a crawling task.
- * @param {function} done when done
  */
-function audit(done) {
+function audit() {
   const nodeUrl = amqpConfig.connect;
   amqp.connect(nodeUrl, (err, conn) => {
     if (err) return console.log(err);

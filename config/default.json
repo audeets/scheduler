@@ -1,11 +1,11 @@
 {
   "amqp": {
-    "connect": "amqp://localhost"
+    "connect": "amqp://192.168.1.26"
   },
   "hosts": {
-    "apiProjects": "http://kong:8000/"
+    "apiProjects": "http://192.168.1.26:5001/"
   },
   "crawler": {
-    "schedule": "0 2 * * *"
+    "schedule": "0 * * * *"
   }
 }

@@ -3,7 +3,7 @@
     "connect": "amqp://192.168.1.26"
   },
   "hosts": {
-    "apiProjects": "http://192.168.1.26:5001/"
+    "apiProjects": "http://192.168.1.26:5001"
   },
   "crawler": {
     "schedule": "0 * * * *"

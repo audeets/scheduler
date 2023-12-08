@@ -10,8 +10,6 @@ const crawlerConfig = config.get('crawler');
 const _ = require('lodash');
 const cron = require('node-cron');
 const amqp = require('amqplib/callback_api');
-const http = require('http');
-const URL = require('url').Url;
 
 // End of dependencies.
 

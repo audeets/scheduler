@@ -12,7 +12,8 @@
     "check-coverage": "istanbul check-coverage --statement 85",
     "start": "node ./bin/scheduler.js",
     "start:dev": "cross-env NODE_ENV=development node ./bin/scheduler.js",
-    "start:staging": "cross-env NODE_ENV=staging node ./bin/scheduler.js"
+    "start:staging": "cross-env NODE_ENV=staging node ./bin/scheduler.js",
+    "force": "node ./bin/audit.js"
   },
   "dependencies": {
     "amqplib": "^0.4.2",

@@ -6,6 +6,6 @@
     "apiProjects": "http://192.168.1.26:5001"
   },
   "crawler": {
-    "schedule": "0 * * * *"
+    "schedule": "0 2 * * *"
   }
 }

@@ -1,5 +1,5 @@
 FROM node:20.10-alpine3.19
-ENV appDir /usr/src/app
+ENV appDir /usr/app
 
 # use changes to package.json to force Docker not to use the cache
 # when we change our application's nodejs dependencies:

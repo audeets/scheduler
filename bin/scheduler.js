@@ -4,9 +4,9 @@
  * Module dependencies.
  */
 
-const config = require('config');
-const amqpConfig = config.get('amqp');
-const crawlerConfig = config.get('crawler');
+const amqpUrl = process.env.URL_AMQP;
+const projectsUrl = process.env.URL_API_PROJECTS;
+const crawlerConfig = process.env.REGEX;
 const _ = require('lodash');
 const cron = require('node-cron');
 const amqp = require('amqplib/callback_api');
@@ -17,7 +17,7 @@ const EXCHANGE = 'crawl';
 
 // start the scheduler that will trigger the audits according to the pattern
 // define in the config file
-cron.schedule(crawlerConfig.schedule, () => {
+cron.schedule(crawlerConfig, () => {
   console.log('starting audits...');
   audit();
 });
@@ -28,16 +28,15 @@ console.log('scheduler started');
  * creating a crawling task.
  */
 function audit() {
-  const nodeUrl = amqpConfig.connect;
-  amqp.connect(nodeUrl, (err, conn) => {
+  amqp.connect(amqpUrl, (err, conn) => {
     if (err) return console.log(err);
     console.log('connected to node');
     conn.createChannel((err, ch) => {
       if (err) console.log(err);
       console.log('connected to channel');
-      ch.assertExchange(EXCHANGE, 'fanout', {durable: true});
+      ch.assertExchange(EXCHANGE, 'fanout', { durable: true });
       // loop through the projects and send a crawl task
-      let url = `${config.hosts.apiProjects}/api/projects`;
+      let url = `${projectsUrl}/api/projects`;
       console.log(`exchange is ok. now getting projects from ${url}`);
       fetch(url)
         .then(response => response.json())
@@ -46,7 +45,7 @@ function audit() {
             const message = JSON.stringify({
               url: project.url,
               project: project._id, // eslint-disable-line
-              nodeUrl
+              amqpUrl
             });
             ch.publish(EXCHANGE, '', Buffer.from(message));
             console.log(`message published: ${message}`);

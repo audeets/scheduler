@@ -10,15 +10,12 @@
     "test": "npm run coverage && npm run check-coverage",
     "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- --recursive \"./test/unit/**/*Spec.js\"",
     "check-coverage": "istanbul check-coverage --statement 85",
-    "start": "node ./bin/scheduler.js",
-    "start:dev": "cross-env NODE_ENV=development node ./bin/scheduler.js",
-    "start:staging": "cross-env NODE_ENV=staging node ./bin/scheduler.js",
-    "force": "node ./bin/audit.js"
+    "start": "node --env-file=.env ./bin/scheduler.js",
+    "force": "node --env-file=.env ./bin/audit.js"
   },
   "dependencies": {
     "amqplib": "^0.4.2",
     "bluebird": "^3.4.6",
-    "config": "^1.24.0",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.16.4",
     "moment": "^2.15.1",

@@ -45,7 +45,7 @@ function audit() {
             const message = JSON.stringify({
               url: project.url,
               project: project._id, // eslint-disable-line
-              amqpUrl
+              nodeUrl: amqpUrl
             });
             ch.publish(EXCHANGE, '', Buffer.from(message));
             console.log(`message published: ${message}`);

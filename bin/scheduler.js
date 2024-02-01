@@ -38,7 +38,7 @@ function audit() {
       // loop through the projects and send a crawl task
       let url = `${projectsUrl}/api/projects`;
       console.log(`exchange is ok. now getting projects from ${url}`);
-      fetch(url)
+      fetch(url, { headers: { "API-Key": process.env.API_KEY } })
         .then(response => response.json())
         .then(projects => {
           _.each(projects, project => {

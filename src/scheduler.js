@@ -1,8 +1,7 @@
-import _ from "lodash";
 import cron from "node-cron";
 import amqp from "amqplib/callback_api.js";
 
-const EXCHANGE = "crawl";
+const EXCHANGE = "audit";
 const amqpUrl = process.env.URL_AMQP;
 const projectsUrl = process.env.URL_API_PROJECTS;
 const crawlerConfig = process.env.REGEX;
@@ -16,8 +15,8 @@ cron.schedule(crawlerConfig, () => {
 console.log("scheduler started");
 
 /**
- * Loads all the projects from the db and run the audit of each of them by
- * creating a crawling task.
+ * Loads all the projects from the db and run the audit for
+ * each of the URLs defined.
  */
 function startAudits() {
   amqp.connect(amqpUrl, (err, conn) => {
@@ -33,14 +32,16 @@ function startAudits() {
       fetch(url, { headers: { "API-Key": process.env.API_KEY } })
         .then((response) => response.json())
         .then((projects) => {
-          _.each(projects, (project) => {
-            const message = JSON.stringify({
-              url: project.url,
-              project: project._id, // eslint-disable-line
-              nodeUrl: amqpUrl,
+          projects.forEach((project) => {
+            project.urls.forEach((url) => {
+              const message = JSON.stringify({
+                url: `https://${project.domain}${url}`,
+                project: project._id,
+                nodeUrl: amqpUrl,
+              });
+              ch.publish(EXCHANGE, "", Buffer.from(message));
+              console.log(`message published: ${message}`);
             });
-            ch.publish(EXCHANGE, "", Buffer.from(message));
-            console.log(`message published: ${message}`);
           });
         })
         .catch((error) => console.log(error));

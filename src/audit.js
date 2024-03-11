@@ -1,3 +1,3 @@
-import scheduler from "./scheduler.js";
+import scheduler from './scheduler.js';
 
 scheduler.startAudits();
